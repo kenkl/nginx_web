@@ -13,7 +13,7 @@ version: '3'
 services:
   nginx_web:
     build: nginx_web
-    image: kenkl/nginx_web
+    image: nginx_web
     container_name: nginx_web
     volumes:
     - /docker/nginx:/config
