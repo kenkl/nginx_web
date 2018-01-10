@@ -1,0 +1,27 @@
+# ===== WARNING =====
+# Do these things FIRST:
+# Create a directory on the host for the nginx container: sudo mkdir -p /docker/nginx
+# Create a user-context for nginx: sudo useradd -m -s /bin/false nginx
+# Set ownership of the nginx data directory accordingly: sudo chown nginx:nginx /docker/nginx
+# Set PUID and PGID below to match the user account's uid/gid: id nginx
+# (optional) Set TZ to suit your situation (see /usr/share/zoneinfo for possible values)
+# (optional) Set ports to suit your needs. Remember the order: HOST:CONTAINER/tcp - change the HOST value.
+# Finally, launch with docker-compose. For copypasta: docker-compose up --build -d
+# Have Fun!
+---
+version: '3'
+services:
+  nginx_web:
+    build: nginx_web
+    image: kenkl/nginx_web
+    container_name: nginx_web
+    volumes:
+    - /docker/nginx:/config
+    ports:
+    - '8080:80/tcp'
+    - '8443:443/tcp'
+    environment:
+    - TZ="America/New_York"
+    - PUID=1001
+    - PGID=1001
+    restart: always
